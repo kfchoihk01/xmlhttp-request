@@ -22,7 +22,7 @@ var DEFAULT_TIMEOUT = 3 * 60 * 1000 // 3 minutes
 
 //
 // PolyFill
-// 
+//
 
 // Production steps of ECMA-262, Edition 5, 15.4.4.18
 // Reference: http://es5.github.io/#x15.4.4.18
@@ -45,7 +45,7 @@ if (!Array.prototype.forEach) {
     // 3. Let len be toUint32(lenValue).
     var len = O.length >>> 0;
 
-    // 4. If isCallable(callback) is false, throw a TypeError exception. 
+    // 4. If isCallable(callback) is false, throw a TypeError exception.
     // See: http://es5.github.com/#x9.11
     if (typeof callback !== "function") {
       throw new TypeError(callback + ' is not a function');
@@ -146,7 +146,7 @@ function request(options, callback) {
     else if(typeof options.body !== 'string' && options.body !== null)
       options.body = JSON.stringify(options.body)
   }
-  
+
   //BEGIN QS Hack
   var serialize = function(obj) {
     var str = [];
@@ -156,7 +156,7 @@ function request(options, callback) {
       }
     return str.join("&");
   }
-  
+
   if(options.qs){
     var qs = (typeof options.qs == 'string')? options.qs : serialize(options.qs);
     if(options.uri.indexOf('?') !== -1){ //no get params
@@ -166,7 +166,7 @@ function request(options, callback) {
     }
   }
   //END QS Hack
-  
+
   //BEGIN FORM Hack
   var multipart = function(obj) {
     //todo: support file type (useful?)
@@ -189,7 +189,7 @@ function request(options, callback) {
     result.type = 'multipart/form-data; boundary='+result.boundry;
     return result;
   }
-  
+
   if(options.form){
     if(typeof options.form == 'string') throw('form name unsupported');
     if(options.method === 'POST'){
@@ -472,7 +472,7 @@ function formatted(obj, method) {
 // Return whether a URL is a cross-domain request.
 function is_crossDomain(url) {
   // Fix for React Native. CORS does noet exist in that environment
-  if (! window.location) {
+  if (window.navigator && window.navigator.product === 'ReactNative') {
     return false;
   }
 
